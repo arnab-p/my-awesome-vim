@@ -41,8 +41,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'fannheyward/coc-xml'
 
+Plug 'fatih/vim-go'
 call plug#end()
 
 
@@ -55,15 +55,16 @@ nnoremap <C-p> :GFiles<CR>
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <Leader>pf :Files<CR>
 nnoremap <Leader>rp :resize 100<CR>
-nnoremap <Leader>+ :vertical resize +5<CR>
+nnoremap <Leader>= :vertical resize +5<CR>
 nnoremap <Leader>- :vertical resize -5<CR>
 
 set clipboard=unnamed
 imap kk <Esc>:w<CR>
 imap jj <Esc>:w<CR>
 
-nmap <leader>gh :diffget //3<CR>
-nmap <leader>gu :diffget //2<CR>
+nmap <leader>ld :Gvdiff<CR>
+nmap <leader>lh :diffget //3<CR>
+nmap <leader>lm :diffget //2<CR>
 nmap <leader>gs :G<CR>
 
 nmap <leader>gd <Plug>(coc-definition)
@@ -79,18 +80,30 @@ vmap <leader>gf  <Plug>(coc-format-selected)
 nnoremap <leader>cr :CocRestart
 
 let g:coc_global_extensions = [
-  \ 'coc-snippets',
-  \ 'coc-pairs',
-  \ 'coc-tsserver',
-  \ 'coc-eslint',
-  \ 'coc-prettier',
-  \ 'coc-json',
-  \ ]
+      \ 'coc-snippets',
+      \ 'coc-pairs',
+      \ 'coc-tsserver',
+      \ 'coc-eslint',
+      \ 'coc-prettier',
+      \ 'coc-json',
+      \ ]
 
 fun! TrimWhitespace()
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
+  let l:save = winsaveview()
+  keeppatterns %s/\s\+$//e
+  call winrestview(l:save)
 endfun
+
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
 
 autocmd BufWritePre * :call TrimWhitespace()
