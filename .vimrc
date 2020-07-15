@@ -1,6 +1,8 @@
 syntax on
+
 set guicursor=
 set hidden
+set relativenumber
 set noerrorbells
 set tabstop=2 softtabstop=2
 set shiftwidth=2
@@ -18,6 +20,7 @@ set nohlsearch
 set scrolloff=8
 set cmdheight=2
 set updatetime=50
+set diffopt+=vertical
 
 let loaded_matchparen = 1
 let mapleader = " "
@@ -62,9 +65,10 @@ set clipboard=unnamed
 imap kk <Esc>:w<CR>
 imap jj <Esc>:w<CR>
 
-nmap <leader>ld :Gvdiff<CR>
-nmap <leader>lh :diffget //3<CR>
-nmap <leader>lm :diffget //2<CR>
+nmap <leader>ld :Gdiffsplit!<CR>
+nmap <leader>ww :Gwrite<CR>
+nmap <leader>f :diffget //3<CR>
+nmap <leader>a :diffget //2<CR>
 nmap <leader>gs :G<CR>
 
 nmap <leader>gd <Plug>(coc-definition)
