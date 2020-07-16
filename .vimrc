@@ -20,7 +20,7 @@ set nohlsearch
 set scrolloff=8
 set cmdheight=2
 set updatetime=50
-set diffopt+=vertical
+" set diffopt+=vertical
 
 let loaded_matchparen = 1
 let mapleader = " "
@@ -109,5 +109,13 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>ac  <Plug>(coc-codeaction)
 
 autocmd BufWritePre * :call TrimWhitespace()
