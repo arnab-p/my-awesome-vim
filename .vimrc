@@ -20,18 +20,29 @@ set nohlsearch
 set scrolloff=8
 set cmdheight=2
 set updatetime=50
-" set diffopt+=vertical
+set ic
+set diffopt+=vertical
+set foldmethod=indent
+set foldlevel=2
+set foldlevelstart=2
+set termguicolors
+set colorcolumn=100
 
 let loaded_matchparen = 1
 let mapleader = " "
 
-colorscheme 256_noir
+" colors pyte
+" colorscheme 256_noir
+" let g:alduin_Shout_Become_Ethereal = 1
+" colorscheme alduin
+let ayucolor="mirage"   " for dark version of theme
+colorscheme ayu
 
 " Change highlighting of cursor line when entering/leaving Insert Mode
-set cursorline
-highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
-autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1c1c1c
-autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
+" set cursorline
+" highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
+" autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1c1c1c
+" autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
 
 
 call plug#begin('~/.vim/plugged')
@@ -71,18 +82,6 @@ nmap <leader>f :diffget //3<CR>
 nmap <leader>a :diffget //2<CR>
 nmap <leader>gs :G<CR>
 
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gy <Plug>(coc-type-definition)
-nmap <leader>gi <Plug>(coc-implementation)
-nmap <leader>gr <Plug>(coc-references)
-nmap <leader>rr <Plug>(coc-rename)
-nmap <leader>g[ <Plug>(coc-diagnostic-prev)
-nmap <leader>g] <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
-nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
-vmap <leader>gf  <Plug>(coc-format-selected)
-nnoremap <leader>cr :CocRestart
-
 let g:coc_global_extensions = [
       \ 'coc-snippets',
       \ 'coc-pairs',
@@ -117,5 +116,29 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gy <Plug>(coc-type-definition)
+nmap <leader>gi <Plug>(coc-implementation)
+nmap <leader>gr <Plug>(coc-references)
+nmap <leader>rr <Plug>(coc-rename)
+nmap <leader>g[ <Plug>(coc-diagnostic-prev)
+nmap <leader>g] <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
+nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
+vmap <leader>gf  <Plug>(coc-format-selected)
+nnoremap <leader>cr :CocRestart
 
 autocmd BufWritePre * :call TrimWhitespace()
+" autocmd BufReadPost,BufNewFile * normal zM
+nnoremap <Tab> zr
+nnoremap <S-Tab> zm
+
+"au BufWinLeave * mkview
+"au BufWinEnter * silent loadview
+
+" macros
+let @p = 'gg/BASEyypki#€ýajf:is€ýa4lCapi.dev.rudderlabs.com€ýa:w'
+let @l = 'gg/BASEyypki#€ýajf:is€ýa4lCapi.rudderlabs.com€ýa:w'
+let @o = 'ggO€ýap/CONFIG_BACKwlChttps://api.dev.rudderlabs.com€ýaj$T=C€ýaj$T=Dggyiwgi"€ýajpggdd:w'
+let @k = 'ggO€ýap/CONFIG_BACKwlChttps://api.rudderlabs.com€ýaj$T=C€ýaj$T=Dggyiwgi"€ýajpggdd:w'
+let @n = 'ggO€ýap/CONFIG_BACKwlChttp://localhost:5000€ýaj$T=C€ýaj$T=Dggyiwgi"€ýajpggdd:w'
