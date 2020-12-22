@@ -59,7 +59,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'fatih/vim-go'
 call plug#end()
 
-
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
@@ -128,7 +127,18 @@ nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 vmap <leader>gf  <Plug>(coc-format-selected)
 nnoremap <leader>cr :CocRestart
 
-autocmd BufWritePre * :call TrimWhitespace()
+augroup vimrcEx
+  autocmd!
+
+  " autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd BufRead,BufNewFile *.md set wrap linebreak nolist filetype=markdown
+  autocmd BufRead,BufNewFile aliases.local,zshrc.local,*/zsh/configs/* set filetype=sh
+  autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
+  autocmd BufRead,BufNewFile tmux.conf.local set filetype=tmux
+  autocmd BufRead,BufNewFile vimrc.local set filetype=vim
+  autocmd BufWritePre * :call TrimWhitespace()
+augroup END
+
 " autocmd BufReadPost,BufNewFile * normal zM
 nnoremap <Tab> zr
 nnoremap <S-Tab> zm
